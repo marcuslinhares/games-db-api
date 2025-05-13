@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: gamesdb-postgres
+    environment:
+      POSTGRES_DB: gamesdb
+      POSTGRES_USER: gamesdb
+      POSTGRES_PASSWORD: gamesdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - gamesdb_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  gamesdb_postgres_data:
+    
