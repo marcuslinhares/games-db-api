@@ -1,0 +1,19 @@
+package dev.marcus.games_db_api.domain.DTOs.requests;
+
+import java.time.LocalDate;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record ReqRegistroDesenvolvedorDTO(
+    @NotBlank(message = "O nome é obrigatório")
+    String nome,
+
+    @NotNull(message = "A data de fundação é obrigatória")
+    LocalDate dataFundacao,
+
+    String website, 
+    String sede
+) {
+
+}
