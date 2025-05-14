@@ -1,5 +1,6 @@
 package dev.marcus.games_db_api.controllers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -11,8 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Desenvolvedores")
 public interface DesenvolvedorController {
+
     @Operation(
-        summary = "Cadastra novo candidato no sistema.",
+        summary = "Cadastra novo desenvolvedor no sistema.",
         responses = {
             @ApiResponse(responseCode = "201"),
             @ApiResponse(responseCode = "400", ref = "badRequest"),
@@ -23,5 +25,17 @@ public interface DesenvolvedorController {
     ResponseEntity<ResRegistroDesenvolvedorDTO> save(
         ReqRegistroDesenvolvedorDTO dto,
         UriComponentsBuilder uriBuilder
+    );
+
+    @Operation(
+        summary = "Busca todos os desenvolvedores do sistema.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<Page<ResRegistroDesenvolvedorDTO>> findAll(
+        int page, int size
     );
 }

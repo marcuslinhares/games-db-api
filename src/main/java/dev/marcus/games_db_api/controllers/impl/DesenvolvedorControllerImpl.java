@@ -1,9 +1,14 @@
 package dev.marcus.games_db_api.controllers.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,8 +31,18 @@ public class DesenvolvedorControllerImpl implements DesenvolvedorController{
         @RequestBody @Valid ReqRegistroDesenvolvedorDTO dto, UriComponentsBuilder uriBuilder
     ) {
         var response = desenvolvedorService.save(dto);
-        var uri = uriBuilder.path("/desenvolvedor/{id}").buildAndExpand(response.id()).toUri();
+        var uri = uriBuilder.path("/desenvolvedor/{id}").buildAndExpand(response.codigo()).toUri();
         return ResponseEntity.created(uri).body(response);
+    }
+
+    @Override
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<Page<ResRegistroDesenvolvedorDTO>> findAll(
+        @RequestParam int page, @RequestParam int size
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            this.desenvolvedorService.findAll(PageRequest.of(page, size))
+        );
     }
 
 }
