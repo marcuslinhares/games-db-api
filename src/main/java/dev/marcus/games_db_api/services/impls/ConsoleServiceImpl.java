@@ -72,7 +72,7 @@ public class ConsoleServiceImpl implements ConsoleService{
         return ConsoleMapper.fromEntityToResRegistroDTO(consoleParaExcluir);
     }
 
-    private ConsoleEntity findEntityById(Long id){
+    public ConsoleEntity findEntityById(Long id){
         return this.consoleRepository.findById(id).orElseThrow(
             () -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND,

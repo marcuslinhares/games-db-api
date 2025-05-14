@@ -72,7 +72,7 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
         return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedorParaExcluir);
     }
 
-    private DesenvolvedorEntity findEntityById(Long id){
+    public DesenvolvedorEntity findEntityById(Long id){
         return this.desenvolvedorRepository.findById(id).orElseThrow(
             () -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND,
