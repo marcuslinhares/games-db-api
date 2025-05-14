@@ -44,7 +44,9 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
             desenvolvedorParaEditar,
             dto
         );
-        return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedorParaEditar);
+        return DesenvolvedorMapper.entityToResRegistroDTO(
+            this.desenvolvedorRepository.save(desenvolvedorParaEditar)
+        );
     }
 
     DesenvolvedorEntity findEntityById(Long id){
@@ -54,6 +56,13 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
                 "Desenvolvedor não existe na base de dados!"
             )
         );
+    }
+
+    @Override
+    public ResRegistroDesenvolvedorDTO delete(Long id) {
+        var desenvolvedorParaExcluir = this.findEntityById(id);
+        this.desenvolvedorRepository.delete(desenvolvedorParaExcluir);
+        return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedorParaExcluir);
     }
 }
 

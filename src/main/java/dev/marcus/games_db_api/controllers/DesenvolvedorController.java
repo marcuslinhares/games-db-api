@@ -51,4 +51,15 @@ public interface DesenvolvedorController {
     ResponseEntity<ResRegistroDesenvolvedorDTO> update(
         ReqRegistroDesenvolvedorDTO dto, Long id
     );
+
+    @Operation(
+        summary = "Apaga um desenvolvedor do sistema pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroDesenvolvedorDTO> delete(Long id);
 }
