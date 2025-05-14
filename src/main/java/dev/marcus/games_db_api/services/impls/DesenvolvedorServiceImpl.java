@@ -12,6 +12,7 @@ import dev.marcus.games_db_api.domain.entities.DesenvolvedorEntity;
 import dev.marcus.games_db_api.domain.mappers.DesenvolvedorMapper;
 import dev.marcus.games_db_api.repositories.DesenvolvedorRepository;
 import dev.marcus.games_db_api.services.DesenvolvedorService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,6 +21,7 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
     private final DesenvolvedorRepository desenvolvedorRepository;
 
     @Override
+    @Transactional
     public ResRegistroDesenvolvedorDTO save(ReqRegistroDesenvolvedorDTO dto) {
         return DesenvolvedorMapper.entityToResRegistroDTO(
             this.desenvolvedorRepository.save(
@@ -38,6 +40,7 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
     }
 
     @Override
+    @Transactional
     public ResRegistroDesenvolvedorDTO update(ReqRegistroDesenvolvedorDTO dto, Long id) {
         var desenvolvedorParaEditar = this.findEntityById(id);
         DesenvolvedorMapper.fromRegistroDTOToEntityUpdate(
@@ -59,6 +62,7 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
     }
 
     @Override
+    @Transactional
     public ResRegistroDesenvolvedorDTO delete(Long id) {
         var desenvolvedorParaExcluir = this.findEntityById(id);
         this.desenvolvedorRepository.delete(desenvolvedorParaExcluir);
