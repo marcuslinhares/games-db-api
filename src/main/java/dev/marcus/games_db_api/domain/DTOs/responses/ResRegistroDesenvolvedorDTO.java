@@ -6,7 +6,7 @@ import lombok.Builder;
 
 @Builder
 public record ResRegistroDesenvolvedorDTO(
-    Long id,
+    Long codigo,
     String nome,
     LocalDate dataFundacao,
     String website, 

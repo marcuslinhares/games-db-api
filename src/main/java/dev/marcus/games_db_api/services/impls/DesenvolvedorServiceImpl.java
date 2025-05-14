@@ -1,5 +1,7 @@
 package dev.marcus.games_db_api.services.impls;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroDesenvolvedorDTO;
@@ -22,4 +24,15 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
             )
         );
     }
+
+    @Override
+    public Page<ResRegistroDesenvolvedorDTO> findAll(Pageable pageable) {
+        return this.desenvolvedorRepository.findAll(pageable).map(
+            desenvolvedor -> {
+                return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedor);
+            }
+        );
+    }
 }
+
+

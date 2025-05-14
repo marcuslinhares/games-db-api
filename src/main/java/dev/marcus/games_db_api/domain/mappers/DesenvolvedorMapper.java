@@ -21,6 +21,7 @@ public abstract class DesenvolvedorMapper {
         DesenvolvedorEntity desenvolvedor
     ){
         return ResRegistroDesenvolvedorDTO.builder()
+            .codigo(desenvolvedor.getCodigo())
             .nome(desenvolvedor.getNome())
             .dataFundacao(desenvolvedor.getDataFundacao())
             .website(desenvolvedor.getWebsite())
