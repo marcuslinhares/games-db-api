@@ -64,6 +64,14 @@ public class ConsoleServiceImpl implements ConsoleService{
         );
     }
 
+    @Override
+    @Transactional
+    public ResRegistroConsoleDTO delete(Long id) {
+        var consoleParaExcluir = this.findEntityById(id);
+        this.consoleRepository.delete(consoleParaExcluir);
+        return ConsoleMapper.fromEntityToResRegistroDTO(consoleParaExcluir);
+    }
+
     private ConsoleEntity findEntityById(Long id){
         return this.consoleRepository.findById(id).orElseThrow(
             () -> new ResponseStatusException(
@@ -72,5 +80,4 @@ public class ConsoleServiceImpl implements ConsoleService{
             )
         );
     }
-
 }

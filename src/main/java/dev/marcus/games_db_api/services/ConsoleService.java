@@ -10,4 +10,6 @@ public interface ConsoleService {
     ResRegistroConsoleDTO save(ReqRegistroConsoleDTO dto);
     Page<ResRegistroConsoleDTO> findall(Pageable pageable);
     ResRegistroConsoleDTO findById(Long id);
+    ResRegistroConsoleDTO update(ReqRegistroConsoleDTO dto, Long id);
+    ResRegistroConsoleDTO delete(Long id);
 }
