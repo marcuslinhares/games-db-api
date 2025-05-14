@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroConsoleDTO;
 import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroConsoleDTO;
+import dev.marcus.games_db_api.domain.entities.ConsoleEntity;
 import dev.marcus.games_db_api.domain.mappers.ConsoleMapper;
 import dev.marcus.games_db_api.repositories.ConsoleRepository;
 import dev.marcus.games_db_api.services.ConsoleService;
@@ -46,6 +47,28 @@ public class ConsoleServiceImpl implements ConsoleService{
                     HttpStatus.NOT_FOUND,
                     "Console não encontrado na base de dados!"
                 )
+            )
+        );
+    }
+
+    @Override
+    @Transactional
+    public ResRegistroConsoleDTO update(ReqRegistroConsoleDTO dto, Long id) {
+        var consoleParaEditar = this.findEntityById(id);
+        ConsoleMapper.fromRegistroDTOToEntityUpdate(
+            consoleParaEditar,
+            dto
+        );
+        return ConsoleMapper.fromEntityToResRegistroDTO(
+            this.consoleRepository.save(consoleParaEditar)
+        );
+    }
+
+    private ConsoleEntity findEntityById(Long id){
+        return this.consoleRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Console não existe na base de dados!"
             )
         );
     }

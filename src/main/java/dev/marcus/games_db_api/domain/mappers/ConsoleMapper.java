@@ -25,4 +25,12 @@ public abstract class ConsoleMapper {
             .empresa(console.getEmpresa())
         .build();
     }
+
+    public static void fromRegistroDTOToEntityUpdate(
+        ConsoleEntity console, ReqRegistroConsoleDTO dto
+    ){
+        console.setNome(dto.nome());
+        console.setDataLancamento(dto.dataLancamento());
+        console.setEmpresa(dto.empresa());
+    }
 }

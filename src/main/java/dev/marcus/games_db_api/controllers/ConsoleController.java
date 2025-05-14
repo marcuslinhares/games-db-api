@@ -48,4 +48,17 @@ public interface ConsoleController {
         }
     )
     ResponseEntity<ResRegistroConsoleDTO> findById(Long id);
+
+    @Operation(
+        summary = "Atualiza um console do sistema pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroConsoleDTO> update(
+        ReqRegistroConsoleDTO dto, Long id
+    );
 }

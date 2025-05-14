@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +54,17 @@ public class ConsoleControllerImpl implements ConsoleController{
         @PathVariable Long id
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.consoleService.findById(id));
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<ResRegistroConsoleDTO> update(
+        @RequestBody @Valid ReqRegistroConsoleDTO dto, 
+        @PathVariable Long id
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            this.consoleService.update(dto, id)
+        );
     }
 
 }
