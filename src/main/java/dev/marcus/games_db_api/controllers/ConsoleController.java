@@ -1,5 +1,6 @@
 package dev.marcus.games_db_api.controllers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,4 +25,27 @@ public interface ConsoleController {
         ReqRegistroConsoleDTO dto,
         UriComponentsBuilder uriBuilder
     );
+
+    @Operation(
+        summary = "Busca todos os consoles do sistema.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<Page<ResRegistroConsoleDTO>> findAll(
+        int page, int size
+    );
+
+    @Operation(
+        summary = "Busca um console pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroConsoleDTO> findById(Long id);
 }

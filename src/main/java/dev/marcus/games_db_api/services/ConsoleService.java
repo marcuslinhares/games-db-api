@@ -1,8 +1,13 @@
 package dev.marcus.games_db_api.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroConsoleDTO;
 import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroConsoleDTO;
 
 public interface ConsoleService {
     ResRegistroConsoleDTO save(ReqRegistroConsoleDTO dto);
+    Page<ResRegistroConsoleDTO> findall(Pageable pageable);
+    ResRegistroConsoleDTO findById(Long id);
 }

@@ -1,6 +1,10 @@
 package dev.marcus.games_db_api.services.impls;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroConsoleDTO;
 import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroConsoleDTO;
@@ -21,6 +25,27 @@ public class ConsoleServiceImpl implements ConsoleService{
         return ConsoleMapper.fromEntityToResRegistroDTO(
             this.consoleRepository.save(
                 ConsoleMapper.fromReqRegistroDTOtoEntity(dto)
+            )
+        );
+    }
+
+    @Override
+    public Page<ResRegistroConsoleDTO> findall(Pageable pageable) {
+        return this.consoleRepository.findAll(pageable).map(
+            console -> {
+                return ConsoleMapper.fromEntityToResRegistroDTO(console);
+            }
+        );
+    }
+
+    @Override
+    public ResRegistroConsoleDTO findById(Long id) {
+        return ConsoleMapper.fromEntityToResRegistroDTO(
+            this.consoleRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Console não encontrado na base de dados!"
+                )
             )
         );
     }
