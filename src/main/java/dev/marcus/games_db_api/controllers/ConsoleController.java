@@ -17,7 +17,6 @@ public interface ConsoleController {
         responses = {
             @ApiResponse(responseCode = "201"),
             @ApiResponse(responseCode = "400", ref = "badRequest"),
-            @ApiResponse(responseCode = "409", ref = "conflict"),
             @ApiResponse(responseCode = "500", ref = "internalServerError")
         }
     )
