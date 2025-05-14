@@ -2,10 +2,13 @@ package dev.marcus.games_db_api.services.impls;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroDesenvolvedorDTO;
 import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroDesenvolvedorDTO;
+import dev.marcus.games_db_api.domain.entities.DesenvolvedorEntity;
 import dev.marcus.games_db_api.domain.mappers.DesenvolvedorMapper;
 import dev.marcus.games_db_api.repositories.DesenvolvedorRepository;
 import dev.marcus.games_db_api.services.DesenvolvedorService;
@@ -31,6 +34,25 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
             desenvolvedor -> {
                 return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedor);
             }
+        );
+    }
+
+    @Override
+    public ResRegistroDesenvolvedorDTO update(ReqRegistroDesenvolvedorDTO dto, Long id) {
+        var desenvolvedorParaEditar = this.findEntityById(id);
+        DesenvolvedorMapper.fromRegistroDTOToEntityUpdate(
+            desenvolvedorParaEditar,
+            dto
+        );
+        return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedorParaEditar);
+    }
+
+    DesenvolvedorEntity findEntityById(Long id){
+        return this.desenvolvedorRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Desenvolvedor não existe na base de dados!"
+            )
         );
     }
 }

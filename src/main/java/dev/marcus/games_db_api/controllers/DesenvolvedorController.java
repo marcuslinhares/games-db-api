@@ -31,11 +31,24 @@ public interface DesenvolvedorController {
         summary = "Busca todos os desenvolvedores do sistema.",
         responses = {
             @ApiResponse(responseCode = "200"),
-            @ApiResponse(responseCode = "400"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
             @ApiResponse(responseCode = "500", ref = "internalServerError")
         }
     )
     ResponseEntity<Page<ResRegistroDesenvolvedorDTO>> findAll(
         int page, int size
+    );
+
+    @Operation(
+        summary = "Atualiza um desenvolvedor do sistema pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroDesenvolvedorDTO> update(
+        ReqRegistroDesenvolvedorDTO dto, Long id
     );
 }

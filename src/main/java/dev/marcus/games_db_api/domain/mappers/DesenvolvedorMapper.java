@@ -28,4 +28,13 @@ public abstract class DesenvolvedorMapper {
             .sede(desenvolvedor.getSede())
         .build();
     }
+
+    public static void fromRegistroDTOToEntityUpdate(
+        DesenvolvedorEntity desenvolvedor, ReqRegistroDesenvolvedorDTO dto
+    ){
+        desenvolvedor.setNome(dto.nome());
+        desenvolvedor.setDataFundacao(dto.dataFundacao());
+        desenvolvedor.setSede(dto.sede());
+        desenvolvedor.setWebsite(dto.website());
+    }
 }

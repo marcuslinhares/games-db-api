@@ -5,7 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,17 @@ public class DesenvolvedorControllerImpl implements DesenvolvedorController{
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(
             this.desenvolvedorService.findAll(PageRequest.of(page, size))
+        );
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<ResRegistroDesenvolvedorDTO> update(
+        @RequestBody @Valid ReqRegistroDesenvolvedorDTO dto,
+        @PathVariable Long id
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            this.desenvolvedorService.update(dto, id)
         );
     }
 
