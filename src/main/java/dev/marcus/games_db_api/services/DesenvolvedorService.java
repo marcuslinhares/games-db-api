@@ -9,6 +9,7 @@ import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroDesenvolvedorDTO
 public interface DesenvolvedorService {
     ResRegistroDesenvolvedorDTO save(ReqRegistroDesenvolvedorDTO dto);
     Page<ResRegistroDesenvolvedorDTO> findAll(Pageable pageable);
+    ResRegistroDesenvolvedorDTO findById(Long id);
     ResRegistroDesenvolvedorDTO update(ReqRegistroDesenvolvedorDTO dto, Long id);
     ResRegistroDesenvolvedorDTO delete(Long id);
 }

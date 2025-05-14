@@ -40,6 +40,18 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
     }
 
     @Override
+    public ResRegistroDesenvolvedorDTO findById(Long id) {
+        return DesenvolvedorMapper.entityToResRegistroDTO(
+            this.desenvolvedorRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Desenvolvedor não existe na base de dados!"
+                )
+            )
+        );
+    }
+
+    @Override
     @Transactional
     public ResRegistroDesenvolvedorDTO update(ReqRegistroDesenvolvedorDTO dto, Long id) {
         var desenvolvedorParaEditar = this.findEntityById(id);
@@ -51,22 +63,22 @@ public class DesenvolvedorServiceImpl implements DesenvolvedorService{
             this.desenvolvedorRepository.save(desenvolvedorParaEditar)
         );
     }
-
-    DesenvolvedorEntity findEntityById(Long id){
-        return this.desenvolvedorRepository.findById(id).orElseThrow(
-            () -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Desenvolvedor não existe na base de dados!"
-            )
-        );
-    }
-
+    
     @Override
     @Transactional
     public ResRegistroDesenvolvedorDTO delete(Long id) {
         var desenvolvedorParaExcluir = this.findEntityById(id);
         this.desenvolvedorRepository.delete(desenvolvedorParaExcluir);
         return DesenvolvedorMapper.entityToResRegistroDTO(desenvolvedorParaExcluir);
+    }
+
+    private DesenvolvedorEntity findEntityById(Long id){
+        return this.desenvolvedorRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Desenvolvedor não existe na base de dados!"
+            )
+        );
     }
 }
 

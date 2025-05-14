@@ -49,6 +49,16 @@ public class DesenvolvedorControllerImpl implements DesenvolvedorController{
     }
 
     @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<ResRegistroDesenvolvedorDTO> findById(
+       @PathVariable Long id
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            this.desenvolvedorService.findById(id)
+        );
+    }
+
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<ResRegistroDesenvolvedorDTO> update(
         @RequestBody @Valid ReqRegistroDesenvolvedorDTO dto,
@@ -66,5 +76,4 @@ public class DesenvolvedorControllerImpl implements DesenvolvedorController{
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.desenvolvedorService.delete(id));
     }
-
 }
