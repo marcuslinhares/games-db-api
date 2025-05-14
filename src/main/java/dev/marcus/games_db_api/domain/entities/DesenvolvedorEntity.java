@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "desenvolvedor")
 @Table(name = "desenvolvedor", schema = "gamesdb")
@@ -31,4 +32,11 @@ public class DesenvolvedorEntity {
     private String website;
 
     private String sede;
+
+    @OneToMany(
+        mappedBy = "desenvolvedor",
+        cascade = CascadeType.REMOVE,
+        orphanRemoval = true
+    )
+    private List<JogoEntity> jogos;
 }
