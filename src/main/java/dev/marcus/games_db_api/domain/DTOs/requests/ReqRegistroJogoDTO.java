@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 public record ReqRegistroJogoDTO(
     @NotBlank(message = "O nome é obrigatório")
     String nome,
-    
+
     String descricao,
 
     @NotNull(message = "A data de lançamento é obrigatória")
@@ -20,7 +20,7 @@ public record ReqRegistroJogoDTO(
     String genero,
     String urlCapa,
 
-    @NotNull(message = "A data de lançamento é obrigatória")
+    @NotNull(message = "O id de desenvolvedor é obrigatório")
     Long desenvolvedor,
 
     @NotEmpty(message = "Pelo menos um console deve ser informado")
