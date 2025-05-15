@@ -72,4 +72,17 @@ public interface JogoController {
         }
     )
     ResponseEntity<ResRegistroJogoDTO> findById(Long id);
+
+    @Operation(
+        summary = "Atualiza um jogo do sistema pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroJogoDTO> update(
+        ReqRegistroJogoDTO dto, Long id
+    );
 }

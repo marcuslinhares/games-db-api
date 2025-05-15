@@ -38,4 +38,18 @@ public abstract class JogoMapper {
             .consoles(jogo.getConsoles().stream().map(ConsoleEntity::getCodigo).toList())
         .build();
     }
+
+    public static void fromReqRegistroDTOtoEntityUpdate(
+        JogoEntity jogo, ReqRegistroJogoDTO dto,
+        DesenvolvedorEntity desenvolvedor, List<ConsoleEntity> consoles
+    ){
+        jogo.setNome(dto.nome());
+        jogo.setDescricao(dto.descricao());
+        jogo.setDataLancamento(dto.dataLancamento());
+        jogo.setWebsite(dto.website());
+        jogo.setGenero(dto.genero());
+        jogo.setUrlCapa(dto.urlCapa());
+        jogo.setDesenvolvedor(desenvolvedor);
+        jogo.setConsoles(consoles);
+    }
 }

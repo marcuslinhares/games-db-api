@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,6 +79,17 @@ public class JogoControllerImpl implements JogoController{
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(
             this.jogoService.findById(id)
+        );
+    }
+
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<ResRegistroJogoDTO> update(
+        @RequestBody @Valid ReqRegistroJogoDTO dto,
+        @PathVariable Long id
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            this.jogoService.update(dto, id)
         );
     }
 

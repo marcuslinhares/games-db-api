@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.marcus.games_db_api.domain.DTOs.requests.ReqRegistroJogoDTO;
 import dev.marcus.games_db_api.domain.DTOs.responses.ResRegistroJogoDTO;
+import dev.marcus.games_db_api.domain.entities.JogoEntity;
 import dev.marcus.games_db_api.domain.mappers.JogoMapper;
 import dev.marcus.games_db_api.repositories.JogoRepository;
 import dev.marcus.games_db_api.services.ConsoleService;
@@ -67,11 +68,29 @@ public class JogoServiceImpl implements JogoService{
     @Override
     public ResRegistroJogoDTO findById(Long id) {
         return JogoMapper.fromEntityToResRegistroDTO(
-            this.jogoRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Desenvolvedor não existe na base de dados!"
-                )
+            this.findEntityById(id)
+        );
+    }
+
+    @Override
+    public ResRegistroJogoDTO update(ReqRegistroJogoDTO dto, Long id) {
+        var jogoParaEditar = this.findEntityById(id);
+        JogoMapper.fromReqRegistroDTOtoEntityUpdate(
+            jogoParaEditar,
+            dto, this.desenvolvedorService.findEntityById(dto.desenvolvedor()),
+            dto.consoles().stream().map(this.consoleService::findEntityById).toList()
+        );
+        
+        return JogoMapper.fromEntityToResRegistroDTO(
+            this.jogoRepository.save(jogoParaEditar)
+        );
+    }
+
+    private JogoEntity findEntityById(Long id){
+        return this.jogoRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "jogo não existente na base de dados!"
             )
         );
     }

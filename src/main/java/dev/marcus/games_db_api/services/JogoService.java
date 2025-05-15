@@ -12,4 +12,5 @@ public interface JogoService {
     Page<ResRegistroJogoDTO> findByDesenvolvedor(Pageable pageable, Long id);
     Page<ResRegistroJogoDTO> findByConsole(Pageable pageable, Long id);
     ResRegistroJogoDTO findById(Long id);
+    ResRegistroJogoDTO update(ReqRegistroJogoDTO dto, Long id);
 }
