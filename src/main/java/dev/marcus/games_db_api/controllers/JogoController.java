@@ -85,4 +85,15 @@ public interface JogoController {
     ResponseEntity<ResRegistroJogoDTO> update(
         ReqRegistroJogoDTO dto, Long id
     );
+
+    @Operation(
+        summary = "Apaga um jogo do sistema pelo id.",
+        responses = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", ref = "badRequest"),
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "500", ref = "internalServerError")
+        }
+    )
+    ResponseEntity<ResRegistroJogoDTO> delete(Long id);
 }

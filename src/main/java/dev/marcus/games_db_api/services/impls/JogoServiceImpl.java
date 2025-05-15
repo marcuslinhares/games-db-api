@@ -73,6 +73,7 @@ public class JogoServiceImpl implements JogoService{
     }
 
     @Override
+    @Transactional
     public ResRegistroJogoDTO update(ReqRegistroJogoDTO dto, Long id) {
         var jogoParaEditar = this.findEntityById(id);
         JogoMapper.fromReqRegistroDTOtoEntityUpdate(
@@ -86,6 +87,14 @@ public class JogoServiceImpl implements JogoService{
         );
     }
 
+    @Override
+    @Transactional
+    public ResRegistroJogoDTO delete(Long id) {
+        var jogoParaExcluir = this.findEntityById(id);
+        this.jogoRepository.delete(jogoParaExcluir);
+        return JogoMapper.fromEntityToResRegistroDTO(jogoParaExcluir);
+    }
+
     private JogoEntity findEntityById(Long id){
         return this.jogoRepository.findById(id).orElseThrow(
             () -> new ResponseStatusException(
@@ -94,5 +103,4 @@ public class JogoServiceImpl implements JogoService{
             )
         );
     }
-
 }
