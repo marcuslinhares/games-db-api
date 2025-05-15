@@ -62,11 +62,11 @@ public class SpringDocConfig {
 
         if (!this.productionUrl.equals("")) {
             servers.add(
-                new Server().url(this.productionUrl + "api").description("PRODUÇÂO")
+                new Server().url(this.productionUrl).description("PRODUÇÂO")
             );
         }else{
             servers.add(
-                new Server().url("http://localhost:" + serverPort + "/api").description("DESENVOLVIMENTO LOCALHOST")
+                new Server().url("http://localhost:" + serverPort).description("DESENVOLVIMENTO LOCALHOST")
             );
         }
 
