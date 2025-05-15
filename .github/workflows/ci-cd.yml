@@ -9,8 +9,8 @@ env:
   IMAGE_NAME: gamesdb-api
   IMAGE_TAG: latest
   SERVICE_NAME: gamesdb-api
-  CONTAINER_PORT: 8080
-  HOST_PORT: 8080
+  CONTAINER_PORT: 8081
+  HOST_PORT: 8081
 
 jobs:
   build:
