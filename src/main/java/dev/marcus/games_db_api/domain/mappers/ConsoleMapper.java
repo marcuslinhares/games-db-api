@@ -18,12 +18,10 @@ public abstract class ConsoleMapper {
     public static ResRegistroConsoleDTO fromEntityToResRegistroDTO(
         ConsoleEntity console
     ){
-        return ResRegistroConsoleDTO.builder()
-            .codigo(console.getCodigo())
-            .nome(console.getNome())
-            .dataLancamento(console.getDataLancamento())
-            .empresa(console.getEmpresa())
-        .build();
+        return new ResRegistroConsoleDTO(
+            console.getCodigo(), console.getNome(), console.getDataLancamento(),
+            console.getEmpresa()
+        );
     }
 
     public static void fromRegistroDTOToEntityUpdate(

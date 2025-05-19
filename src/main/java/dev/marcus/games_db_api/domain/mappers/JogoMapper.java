@@ -27,16 +27,12 @@ public abstract class JogoMapper {
     public static ResRegistroJogoDTO fromEntityToResRegistroDTO(
         JogoEntity jogo
     ){
-        return ResRegistroJogoDTO.builder()
-            .nome(jogo.getNome())
-            .descricao(jogo.getDescricao())
-            .dataLancamento(jogo.getDataLancamento())
-            .website(jogo.getWebsite())
-            .genero(jogo.getGenero())
-            .urlCapa(jogo.getUrlCapa())
-            .desenvolvedor(jogo.getDesenvolvedor().getCodigo())
-            .consoles(jogo.getConsoles().stream().map(ConsoleEntity::getCodigo).toList())
-        .build();
+        return new ResRegistroJogoDTO(
+            jogo.getCodigo(), jogo.getNome(), jogo.getDescricao(),
+            jogo.getDataLancamento(), jogo.getWebsite(), jogo.getGenero(),
+            jogo.getUrlCapa(), jogo.getDesenvolvedor().getCodigo(),
+            jogo.getConsoles().stream().map(ConsoleEntity::getCodigo).toList()
+        );
     }
 
     public static void fromReqRegistroDTOtoEntityUpdate(
@@ -50,6 +46,10 @@ public abstract class JogoMapper {
         jogo.setGenero(dto.genero());
         jogo.setUrlCapa(dto.urlCapa());
         jogo.setDesenvolvedor(desenvolvedor);
-        jogo.setConsoles(consoles);
+
+        if(!consoles.isEmpty()){
+            jogo.getConsoles().clear();
+            jogo.getConsoles().addAll(consoles);
+        }
     }
 }

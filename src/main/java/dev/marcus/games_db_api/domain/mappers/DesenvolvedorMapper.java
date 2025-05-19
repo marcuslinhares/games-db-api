@@ -20,13 +20,11 @@ public abstract class DesenvolvedorMapper {
     public static ResRegistroDesenvolvedorDTO entityToResRegistroDTO(
         DesenvolvedorEntity desenvolvedor
     ){
-        return ResRegistroDesenvolvedorDTO.builder()
-            .codigo(desenvolvedor.getCodigo())
-            .nome(desenvolvedor.getNome())
-            .dataFundacao(desenvolvedor.getDataFundacao())
-            .website(desenvolvedor.getWebsite())
-            .sede(desenvolvedor.getSede())
-        .build();
+        return new ResRegistroDesenvolvedorDTO(
+            desenvolvedor.getCodigo(), desenvolvedor.getNome(), 
+            desenvolvedor.getDataFundacao(), desenvolvedor.getWebsite(),
+            desenvolvedor.getSede()
+        );
     }
 
     public static void fromRegistroDTOToEntityUpdate(
