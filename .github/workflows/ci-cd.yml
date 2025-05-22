@@ -73,4 +73,6 @@ jobs:
             --env PRODURL="${{ secrets.PRODURL }}" \
             $REGISTRY/${{ github.repository_owner }}/$IMAGE_NAME:$IMAGE_TAG
 
-
+    - name: Dispara webhook de deploy na vps secundaria
+      run: |
+        curl -X POST http://204.12.199.113:3000/api/deploy/BRORMyyDPJSRteaYdYt84
